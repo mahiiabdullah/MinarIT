@@ -36,40 +36,39 @@ Key interface highlights include:
 ## 🏗️ Architecture Diagram
 
 ```mermaid
-graph TD
-    %% Core Architecture
-    subgraph Client [Client-Side UI]
-        A[Next.js App Router] --> B[React Server Components]
-        B --> C[Client Components with Framer Motion]
-        C --> D[Zod Form Validation]
-    end
+flowchart TD
+    %% Styling Config
+    classDef client fill:#0A0F1E,stroke:#8B5CF6,stroke-width:2px,color:#fff,rx:8,ry:8
+    classDef server fill:#0A0F1E,stroke:#06B6D4,stroke-width:2px,color:#fff,rx:8,ry:8
+    classDef ai fill:#0A0F1E,stroke:#FF0055,stroke-width:2px,color:#fff,rx:8,ry:8
+    classDef base fill:#1E2336,stroke:#3B4256,stroke-width:1px,color:#fff,rx:4,ry:4
 
-    subgraph Server [Serverless API Routes]
-        E["/api/chat"]
-        F["/api/consultant"]
-        G["/api/calculator"]
-        H["/api/industry-insight"]
-        I["/api/contact"]
-    end
-
-    subgraph AI [Anthropic Claude AI]
-        J[Claude Singleton Helper]
-        K[Centralized AI Prompts]
-    end
-
-    %% Flow
-    Client -- "Fetch / Stream" --> Server
-    Server -- "Zod Validation" --> Server
-    E --> J
-    F --> J
-    G --> J
-    H --> J
-    J -- "Injects" --> K
-    J -- "Streaming Completion" --> Client
+    %% Core Nodes
+    UI["💻 Interactive UI (Framer Motion)"]:::client
+    Validation["🛡️ Zod Schema Validation"]:::base
     
-    style Client fill:#0A0F1E,stroke:#8B5CF6,stroke-width:2px,color:#fff
-    style Server fill:#0A0F1E,stroke:#06B6D4,stroke-width:2px,color:#fff
-    style AI fill:#2d3748,stroke:#FF0055,stroke-width:2px,color:#fff
+    subgraph Routes ["⚡ Serverless API Endpoints"]
+        direction LR
+        Chat["/api/chat"]:::server
+        Consultant["/api/consultant"]:::server
+        Calculator["/api/calculator"]:::server
+        Insight["/api/industry"]:::server
+        Contact["/api/contact"]:::server
+    end
+
+    Claude["🤖 Claude AI Singleton"]:::ai
+    Prompts[("📄 Centralized Prompts")]:::base
+    Success((Done)):::base
+
+    %% Flow Map
+    UI -->|"User Input"| Validation
+    Validation -->|"Fetch Request"| Routes
+    
+    Chat & Consultant & Calculator & Insight -->|"Parse & Execute"| Claude
+    Contact -.->|"Send Email"| Success
+    
+    Claude <-->|"Load System Context"| Prompts
+    Claude == "Streaming Completion" ==> UI
 ```
 
 ---
