@@ -45,11 +45,11 @@ graph TD
     end
 
     subgraph Server [Serverless API Routes]
-        E[/api/chat]
-        F[/api/consultant]
-        G[/api/calculator]
-        H[/api/industry-insight]
-        I[/api/contact]
+        E["/api/chat"]
+        F["/api/consultant"]
+        G["/api/calculator"]
+        H["/api/industry-insight"]
+        I["/api/contact"]
     end
 
     subgraph AI [Anthropic Claude AI]
