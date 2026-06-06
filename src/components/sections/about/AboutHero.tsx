@@ -5,7 +5,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function AboutHero() {
   return (
-    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-background pt-32 pb-20">
+    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-background pt-24 sm:pt-32 pb-12 sm:pb-20">
       {/* Background Gradient Mesh */}
       <div className="absolute inset-0 z-0">
         <div className="hero-blob hero-blob-1" />

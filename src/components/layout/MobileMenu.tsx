@@ -79,10 +79,10 @@ export default function MobileMenu({ isOpen, pathname, onClose }: MobileMenuProp
           </div>
 
           {/* Header Area */}
-          <div className="relative z-10 flex items-center justify-end p-6 h-16 sm:h-20">
+          <div className="relative z-10 flex items-center justify-end p-4 h-16 sm:h-20">
             <button
               onClick={onClose}
-              className="p-2 text-text-muted hover:text-white transition-colors bg-white/5 rounded-full backdrop-blur-md"
+              className="w-11 h-11 flex items-center justify-center text-text-muted hover:text-white transition-colors bg-white/5 rounded-full backdrop-blur-md touch-target"
               aria-label="Close menu"
             >
               <X className="w-6 h-6" />
@@ -112,8 +112,8 @@ export default function MobileMenu({ isOpen, pathname, onClose }: MobileMenuProp
                           href={link.href}
                           onClick={onClose}
                           className={cn(
-                            "text-3xl font-display font-bold transition-all duration-300 relative group w-fit",
-                            isActive ? "text-white" : "text-text-secondary hover:text-white"
+                            "text-2xl font-display font-bold transition-all duration-300 relative flex items-center justify-center w-full min-h-[60px] rounded-xl",
+                            isActive ? "text-white bg-white/5" : "text-text-secondary hover:text-white hover:bg-white/5"
                           )}
                         >
                           {link.label}
@@ -138,8 +138,8 @@ export default function MobileMenu({ isOpen, pathname, onClose }: MobileMenuProp
                           href={link.href}
                           onClick={onClose}
                           className={cn(
-                            "text-xl font-medium transition-colors",
-                            isActive ? "text-white" : "text-text-secondary hover:text-white"
+                            "text-xl font-medium transition-colors flex items-center justify-center w-full min-h-[60px] rounded-xl",
+                            isActive ? "text-white bg-white/5" : "text-text-secondary hover:text-white hover:bg-white/5"
                           )}
                         >
                           {link.label}
@@ -163,16 +163,16 @@ export default function MobileMenu({ isOpen, pathname, onClose }: MobileMenuProp
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-xl font-medium text-text-secondary hover:text-white transition-colors"
+                          className="flex items-center justify-center gap-2 text-xl font-medium w-full min-h-[60px] rounded-xl bg-white/5 text-text-secondary hover:text-white hover:bg-white/10 transition-colors"
                         >
                           {link.label}
-                          <ArrowUpRight className="w-4 h-4 opacity-70" />
+                          {link.label !== "WhatsApp" && <ArrowUpRight className="w-4 h-4 opacity-70" />}
                         </a>
                       ) : (
                         <Link
                           href={link.href}
                           onClick={onClose}
-                          className="flex items-center gap-1 text-xl font-medium text-text-secondary hover:text-white transition-colors"
+                          className="flex items-center justify-center gap-2 text-xl font-bold w-full min-h-[60px] rounded-xl bg-primary text-white hover:bg-primary-600 transition-colors shadow-lg shadow-primary/25"
                         >
                           {link.label}
                         </Link>

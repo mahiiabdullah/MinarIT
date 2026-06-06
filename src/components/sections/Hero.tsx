@@ -368,10 +368,10 @@ export default function Hero() {
     >
       {/* ── Background layers ── */}
       <div className="absolute inset-0 -z-10">
-        {/* Animated gradient mesh blobs */}
-        <div className="hero-blob hero-blob-1" />
-        <div className="hero-blob hero-blob-2" />
-        <div className="hero-blob hero-blob-3" />
+        {/* Animated gradient mesh blobs (reduced size on mobile) */}
+        <div className="hero-blob hero-blob-1 scale-50 sm:scale-100 origin-top-left" />
+        <div className="hero-blob hero-blob-2 scale-50 sm:scale-100 origin-top-right" />
+        <div className="hero-blob hero-blob-3 scale-50 sm:scale-100 origin-bottom-left" />
 
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 hero-grid" />
@@ -398,7 +398,7 @@ export default function Hero() {
 
             {/* Animated headline — word by word */}
             <motion.h1
-              className="mt-6 sm:mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-6xl font-display font-bold leading-[1.1] tracking-tight"
+              className="mt-6 sm:mt-8 text-3xl sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-6xl font-display font-bold leading-[1.1] tracking-tight"
               variants={staggerContainer}
               initial="initial"
               animate="animate"
@@ -432,7 +432,7 @@ export default function Hero() {
 
             {/* Sub-headline */}
             <motion.p
-              className="mt-6 text-base sm:text-lg text-text-secondary leading-relaxed max-w-lg"
+              className="mt-6 text-base sm:text-lg text-text-secondary leading-relaxed w-full sm:max-w-lg px-4 sm:px-0"
               variants={fadeUp}
               initial="initial"
               animate="animate"
@@ -443,7 +443,7 @@ export default function Hero() {
 
             {/* CTA buttons */}
             <motion.div
-              className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4"
+              className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full"
               variants={fadeUp}
               initial="initial"
               animate="animate"
@@ -451,13 +451,13 @@ export default function Hero() {
             >
               <a
                 href="/contact"
-                className="btn-gradient btn-shimmer px-8 py-3.5 text-sm sm:text-base rounded-xl font-semibold text-center shadow-glow"
+                className="btn-gradient btn-shimmer px-8 py-3 text-base rounded-xl font-semibold flex items-center justify-center shadow-glow w-full sm:w-auto min-h-[52px] touch-target"
               >
                 {HERO_CONTENT.cta_primary}
               </a>
               <a
                 href="#demo"
-                className="btn-ghost px-8 py-3.5 text-sm sm:text-base rounded-xl font-semibold text-center group"
+                className="btn-ghost px-8 py-3 text-base rounded-xl font-semibold flex items-center justify-center group w-full sm:w-auto min-h-[52px] touch-target"
               >
                 <span className="flex items-center justify-center gap-2">
                   <svg
@@ -484,21 +484,22 @@ export default function Hero() {
             {/* Stats bar */}
             <motion.div
               ref={statsRef}
-              className="mt-10 sm:mt-12 pt-8 border-t border-white/[0.06]"
+              className="mt-10 sm:mt-12 pt-8 sm:border-t border-white/[0.06]"
               variants={fadeUp}
               initial="initial"
               animate="animate"
               custom={1.4}
             >
-              <div className="flex items-center justify-start divide-x divide-white/[0.08]">
-                {HERO_CONTENT.stats.map((stat) => (
-                  <StatCounter
-                    key={stat.label}
-                    end={stat.end}
-                    suffix={stat.suffix}
-                    label={stat.label}
-                    enabled={statsInView}
-                  />
+              <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08] gap-6 sm:gap-0">
+                {HERO_CONTENT.stats.map((stat, i) => (
+                  <div key={stat.label} className={cn("w-full sm:w-auto", i !== 0 && "pt-6 sm:pt-0")}>
+                    <StatCounter
+                      end={stat.end}
+                      suffix={stat.suffix}
+                      label={stat.label}
+                      enabled={statsInView}
+                    />
+                  </div>
                 ))}
               </div>
             </motion.div>
@@ -507,6 +508,17 @@ export default function Hero() {
           {/* ── Right Column: Dashboard mockup (desktop only) ── */}
           <div className="hidden lg:block">
             <DashboardMockup />
+          </div>
+
+          {/* ── Mobile Metrics Strip ── */}
+          <div className="lg:hidden mt-8 w-full">
+             <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-text-muted font-medium bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-md">
+               <span>40+ Businesses</span>
+               <span className="w-1 h-1 bg-white/20 rounded-full" />
+               <span>500+ Hours Saved</span>
+               <span className="w-1 h-1 bg-white/20 rounded-full" />
+               <span className="text-primary-400">3x ROI</span>
+             </div>
           </div>
         </div>
       </div>

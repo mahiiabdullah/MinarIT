@@ -212,7 +212,7 @@ export default function BeforeAfterSlider() {
         {/* ── Slider Container ── */}
         <div 
           ref={containerRef}
-          className="relative w-full h-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-surface-border shadow-2xl bg-surface select-none touch-none cursor-ew-resize"
+          className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden border border-surface-border shadow-2xl bg-surface select-none touch-pan-y cursor-ew-resize"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -261,7 +261,7 @@ export default function BeforeAfterSlider() {
         </div>
 
         {/* ── Bottom Metrics ── */}
-        <div className="mt-12 grid sm:grid-cols-3 gap-6">
+        <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {[
             { before: "43 Hours", after: "2 Hours", label: "Admin work per week" },
             { before: "$2,400", after: "$200", label: "Monthly operational cost" },

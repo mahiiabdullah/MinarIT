@@ -85,7 +85,7 @@ export default function WorkflowAnimation() {
   const [allDone, setAllDone] = useState(false);
 
   // Time in seconds for each card to animate in
-  const stepDelay = 0.4;
+  const stepDelay = 0.25; // Faster animations feel better on mobile
   const totalDuration = WORKFLOW_STEPS.length * stepDelay;
 
   useEffect(() => {
@@ -154,13 +154,13 @@ export default function WorkflowAnimation() {
                 >
                   {/* Mobile Connecting Line */}
                   {idx !== WORKFLOW_STEPS.length - 1 && (
-                    <div className="lg:hidden absolute left-[31px] top-16 bottom-[-2rem] w-0.5 z-0">
+                    <div className="lg:hidden absolute left-[52px] sm:left-[52px] top-16 bottom-[-2rem] w-0.5 z-0 pointer-events-none">
                       <div className="absolute inset-0 border-l-2 border-dashed border-primary/30" />
                       <motion.div 
                         className="absolute top-0 left-0 bottom-0 border-l-2 border-dashed border-accent origin-top"
                         initial={{ scaleY: 0 }}
                         animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-                        transition={{ duration: stepDelay, delay: idx * stepDelay + 0.2, ease: "linear" }}
+                        transition={{ duration: stepDelay, delay: idx * stepDelay + 0.1, ease: "linear" }}
                       />
                     </div>
                   )}
@@ -264,9 +264,9 @@ export default function WorkflowAnimation() {
                       </div>
 
                       {/* Text */}
-                      <div>
-                        <h4 className="text-base font-bold text-white mb-1.5">{step.title}</h4>
-                        <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
+                      <div className="flex-1">
+                        <h4 className="text-sm sm:text-base font-bold text-white mb-1">{step.title}</h4>
+                        <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">{step.desc}</p>
                       </div>
                     </div>
                   </motion.div>

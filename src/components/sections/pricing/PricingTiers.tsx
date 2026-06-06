@@ -116,7 +116,7 @@ export default function PricingTiers() {
   const [mode, setMode] = useState<BillingMode>("one-time");
 
   return (
-    <section className="relative pt-32 pb-16 overflow-hidden bg-background">
+    <section className="relative pt-24 sm:pt-32 pb-8 sm:pb-16 overflow-hidden bg-background">
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
 

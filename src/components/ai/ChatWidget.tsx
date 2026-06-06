@@ -134,7 +134,7 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
+      <div className="fixed sm:bottom-6 sm:right-6 z-[100] flex flex-col items-end">
         
         {/* Expanded Chat Panel */}
         <AnimatePresence>
@@ -144,7 +144,7 @@ export default function ChatWidget() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="mb-4 w-[calc(100vw-48px)] sm:w-[360px] h-[500px] max-h-[calc(100vh-120px)] bg-surface border border-surface-border rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl"
+              className="fixed inset-0 sm:relative sm:inset-auto sm:mb-4 w-full sm:w-[360px] h-[100dvh] sm:h-[500px] sm:max-h-[calc(100vh-120px)] bg-surface sm:border border-surface-border rounded-none sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl z-[110]"
             >
               {/* Header */}
               <div className="p-4 bg-surface-elevated border-b border-surface-border flex items-center justify-between shrink-0">
@@ -162,14 +162,16 @@ export default function ChatWidget() {
                 </div>
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="p-2 text-text-muted hover:text-white transition-colors"
+                  className="p-3 text-text-muted hover:text-white transition-colors touch-target flex items-center justify-center bg-white/5 rounded-full sm:bg-transparent sm:rounded-none"
+                  aria-label="Close chat"
                 >
-                  <Minus className="w-5 h-5" />
+                  <Minus className="w-5 h-5 hidden sm:block" />
+                  <X className="w-5 h-5 sm:hidden" />
                 </button>
               </div>
 
               {/* Messages Area */}
-              <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2 no-scrollbar">
+              <div className="flex-1 overflow-y-auto p-4 pb-28 sm:pb-4 flex flex-col gap-2 no-scrollbar">
                 {messages.map((msg, index) => {
                   // Only show avatar for first message in a contiguous block from assistant
                   const showAvatar = msg.role === "assistant" && (index === 0 || messages[index - 1].role !== "assistant");
@@ -211,7 +213,7 @@ export default function ChatWidget() {
               )}
 
               {/* Input Area */}
-              <div className="p-4 bg-surface-elevated border-t border-surface-border shrink-0">
+              <div className="fixed bottom-0 left-0 right-0 sm:relative sm:inset-auto p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:pb-4 bg-surface-elevated border-t border-surface-border shrink-0 z-20">
                 <form 
                   onSubmit={(e) => { e.preventDefault(); handleSend(inputValue); }}
                   className="relative flex items-center"
@@ -257,7 +259,7 @@ export default function ChatWidget() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="relative w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] flex items-center justify-center text-white transition-all transform hover:scale-105 active:scale-95"
+            className="fixed bottom-6 right-6 sm:relative sm:bottom-auto sm:right-auto w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] flex items-center justify-center text-white transition-all transform hover:scale-105 active:scale-95 z-[105]"
           >
             <AnimatePresence mode="wait">
               {isOpen ? (

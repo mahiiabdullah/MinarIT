@@ -279,7 +279,7 @@ export default function AIConsultant() {
                       key={msg.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={cn("flex flex-col max-w-[85%]", isAI ? "items-start" : "items-end ml-auto")}
+                      className={cn("flex flex-col max-w-[95%] sm:max-w-[85%]", isAI ? "items-start" : "items-end ml-auto")}
                     >
                       <div className="flex items-end gap-2">
                         {isAI && (
@@ -289,7 +289,7 @@ export default function AIConsultant() {
                         )}
                         <div 
                           className={cn(
-                            "px-5 py-3.5 rounded-2xl text-[15px] leading-relaxed relative group",
+                            "px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl text-sm sm:text-[15px] leading-relaxed relative group",
                             isAI 
                               ? "bg-surface border border-surface-border text-text-primary rounded-bl-sm" 
                               : "bg-gradient-to-br from-primary to-primary-dark text-white rounded-br-sm shadow-lg shadow-primary/20"

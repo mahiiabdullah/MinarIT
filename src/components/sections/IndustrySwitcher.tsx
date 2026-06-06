@@ -537,13 +537,17 @@ export default function IndustrySwitcher() {
             badge="Built For Your Sector"
             title="Systems Tailored to Your"
             highlight="Industry"
-            description="We don't do cookie-cutter software. We build specialized operating systems designed to solve the exact bottlenecks of your specific business model."
+          description="We don't do cookie-cutter software. We build specialized operating systems designed to solve the exact bottlenecks of your specific business model."
           />
         </div>
 
-        {/* ── Tab Bar ── */}
-        <div className="flex justify-start lg:justify-center overflow-x-auto no-scrollbar mb-12 pb-4 snap-x border-b border-surface-border relative">
-          <div className="flex items-center gap-2 px-4 lg:px-0 min-w-max mx-auto">
+        {/* ── Tabs ── */}
+        <div className="relative w-full">
+          {/* Edge shadow hints for mobile scroll */}
+          <div className="absolute left-0 top-0 bottom-4 w-8 bg-gradient-to-r from-background to-transparent z-10 sm:hidden pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-4 w-8 bg-gradient-to-l from-background to-transparent z-10 sm:hidden pointer-events-none" />
+          
+          <div className="flex flex-nowrap sm:flex-wrap sm:justify-center overflow-x-auto snap-x snap-mandatory gap-2 sm:gap-4 mb-10 sm:mb-16 pb-4 sm:pb-0 touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar">
             {INDUSTRIES.map((industry) => {
               const isActive = activeTab === industry.id;
               return (
@@ -551,7 +555,7 @@ export default function IndustrySwitcher() {
                   key={industry.id}
                   onClick={() => setActiveTab(industry.id)}
                   className={cn(
-                    "relative flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-medium transition-all snap-center",
+                    "relative flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl text-sm font-medium transition-all snap-center whitespace-nowrap min-w-[120px] sm:min-w-0 touch-target",
                     isActive
                       ? "text-white"
                       : "text-text-muted hover:text-text-primary hover:bg-white/5"
@@ -582,21 +586,21 @@ export default function IndustrySwitcher() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="grid lg:grid-cols-2 gap-12 items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
             >
               {/* Left Column: Text */}
               <div>
-                <h3 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4 leading-tight">
+                <h3 className="text-2xl lg:text-4xl font-display font-bold text-white mb-4 leading-tight">
                   {activeData.headline}
                 </h3>
-                <p className="text-text-secondary text-lg mb-8 leading-relaxed">
+                <p className="text-text-secondary text-sm sm:text-lg mb-6 sm:mb-8 leading-relaxed">
                   {activeData.painPoint}
                 </p>
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-4 mb-8 sm:mb-10">
                   {activeData.features.map((feature, idx) => (
                     <motion.li 
                       key={idx}
@@ -610,14 +614,14 @@ export default function IndustrySwitcher() {
                     </motion.li>
                   ))}
                 </ul>
-                <Button variant="ghost" className="group">
+                <Button variant="ghost" className="group w-full sm:w-auto touch-target">
                   {activeData.ctaText}
                   <span className="ml-2 group-hover:translate-x-1 transition-transform inline-block">→</span>
                 </Button>
               </div>
 
-              {/* Right Column: Dashboard Mockup */}
-              <div className="relative">
+              {/* Right Column: Dashboard Mockup (Desktop only) */}
+              <div className="relative hidden md:block">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl blur-3xl transform -rotate-3" />
                 <GlassCard className="relative z-10 bg-[#0F1525] border-white/10 shadow-2xl p-6 lg:p-8 overflow-hidden min-h-[380px]" hover={false}>
                   {/* Dashboard Header decoration */}
@@ -632,12 +636,27 @@ export default function IndustrySwitcher() {
                   <Dashboard />
                 </GlassCard>
               </div>
+              
+              {/* Simplified Mobile Metrics View */}
+              <div className="md:hidden">
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md">
+                  <div className="text-xs uppercase tracking-wider text-text-muted font-bold mb-4">Key Metrics Preview</div>
+                  <div className="space-y-3">
+                    {activeData.metrics.map((m, i) => (
+                      <div key={i} className="flex justify-between items-center bg-black/20 p-3 rounded-xl border border-white/5">
+                        <span className="text-xs text-text-secondary font-medium">{m.label}</span>
+                        <span className="text-sm font-bold text-accent-400">{m.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* ── Bottom Metrics Bar ── */}
-        <div className="mt-8">
+        <div className="mt-8 hidden md:block">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab + "-metrics"}

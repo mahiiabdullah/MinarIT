@@ -376,8 +376,23 @@ export default function Calculator() {
                           max="500"
                           value={formData.employees}
                           onChange={(e) => updateForm("employees", parseInt(e.target.value))}
-                          className="w-full h-2 bg-surface-hover rounded-lg appearance-none cursor-pointer accent-primary"
+                          className="w-full h-2 my-4 bg-surface-hover rounded-lg appearance-none cursor-pointer accent-primary"
+                          style={{ WebkitAppearance: 'none' }}
                         />
+                        <style dangerouslySetInnerHTML={{__html: `
+                          input[type=range]::-webkit-slider-thumb {
+                            height: 32px;
+                            width: 32px;
+                            border-radius: 50%;
+                            background: #8B5CF6;
+                            cursor: pointer;
+                            -webkit-appearance: none;
+                            margin-top: -15px;
+                          }
+                          input[type=range]::-webkit-slider-runnable-track {
+                            height: 4px;
+                          }
+                        `}} />
                       </div>
 
                       <div>
@@ -499,8 +514,22 @@ export default function Calculator() {
           </div>
 
           {/* ── Right Column: Results / Loading / Empty ── */}
-          <div className="lg:col-span-7 flex flex-col h-full min-h-[500px]">
-            <GlassCard className="flex-1 flex flex-col h-full bg-background/50 border-surface-border p-6 sm:p-8" hover={false}>
+          <div className={cn(
+            "lg:col-span-7 flex flex-col h-full",
+            report 
+              ? "fixed inset-x-0 bottom-0 z-50 h-[85vh] lg:relative lg:inset-auto lg:h-full lg:min-h-[500px]" 
+              : "min-h-[400px] lg:min-h-[500px]"
+          )}>
+            <GlassCard 
+              className={cn(
+                "flex-1 flex flex-col h-full bg-background/95 backdrop-blur-3xl lg:bg-background/50 border-surface-border p-6 sm:p-8",
+                report ? "overflow-y-auto lg:overflow-visible rounded-t-3xl lg:rounded-2xl shadow-[0_-20px_50px_rgba(0,0,0,0.5)] lg:shadow-none" : ""
+              )} 
+              hover={false}
+            >
+              {report && (
+                <div className="w-12 h-1.5 bg-white/20 rounded-full mx-auto mb-6 lg:hidden" />
+              )}
               
               {/* Empty State */}
               {!isSubmitting && !report && (
