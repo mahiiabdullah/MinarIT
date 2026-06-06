@@ -1,0 +1,23 @@
+"use client";
+
+import { useEffect } from "react";
+import Link from "next/link";
+
+export default function PricingError({ error, reset }: { error: Error; reset: () => void }) {
+  useEffect(() => { console.error("[Pricing Error]", error); }, [error]);
+  return (
+    <main className="min-h-screen bg-[#0A0F1E] pt-32 flex items-center justify-center px-6">
+      <div className="text-center max-w-lg">
+        <div className="text-6xl mb-6">💳</div>
+        <h2 className="text-2xl font-bold text-white mb-3">Could not load pricing</h2>
+        <p className="text-gray-400 mb-8">
+          There was a problem loading the pricing page. Contact us directly for pricing information.
+        </p>
+        <div className="flex items-center justify-center gap-4">
+          <button onClick={reset} className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold hover:opacity-90 transition-opacity">Try Again</button>
+          <Link href="/contact" className="px-6 py-2.5 rounded-xl border border-white/10 text-gray-400 hover:text-white transition-colors">Contact Us</Link>
+        </div>
+      </div>
+    </main>
+  );
+}

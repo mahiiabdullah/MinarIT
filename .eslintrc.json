@@ -1,3 +1,81 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "jsx-a11y"],
+  "rules": {
+    // ─── TypeScript Rules ────────────────────────────────────────────
+    // Use `warn` not `error` so existing code doesn't break CI immediately.
+    // Migrate files over time; new files should have zero warnings.
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "warn",
+      {
+        "allowExpressions": true,
+        "allowTypedFunctionExpressions": true,
+        "allowHigherOrderFunctions": true,
+        "allowDirectConstAssertionInArrowFunctions": true
+      }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports", "disallowTypeAnnotations": false }
+    ],
+    "@typescript-eslint/no-unnecessary-type-assertion": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/prefer-optional-chain": "warn",
+
+    // ─── Console Rules ──────────────────────────────────────────────
+    // Allow console.error and console.warn for legitimate logging.
+    "no-console": [
+      "warn",
+      { "allow": ["error", "warn", "info"] }
+    ],
+
+    // ─── React Hooks Rules ──────────────────────────────────────────
+    "react-hooks/exhaustive-deps": "error",
+
+    // ─── Accessibility Rules ────────────────────────────────────────
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/aria-props": "error",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/interactive-supports-focus": "warn",
+
+    // ─── General Code Quality ────────────────────────────────────────
+    "no-debugger": "error",
+    "no-duplicate-imports": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    "eqeqeq": ["error", "always"],
+
+    // ─── React Rules ────────────────────────────────────────────────
+    "react/no-unescaped-entities": "error",
+    "react/self-closing-comp": ["warn", { "component": true, "html": false }]
+  },
+  "overrides": [
+    {
+      // Relax rules in API routes where 'any' is sometimes unavoidable
+      // for third-party SDK response types
+      "files": ["src/app/api/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "warn"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "out/",
+    "public/"
+  ]
 }
