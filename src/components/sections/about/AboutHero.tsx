@@ -31,8 +31,8 @@ export default function AboutHero() {
             variants={fadeInUp}
             className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6 text-balance"
           >
-            We Don&apos;t Build Websites. <br />
-            <span className="gradient-text">We Build Operating Systems.</span>
+            We Don&apos;t Just Build Websites. <br />
+            <span className="gradient-text">We Build The Systems Behind Them.</span>
           </motion.h1>
           
           <motion.p 
