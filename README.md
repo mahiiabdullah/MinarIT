@@ -35,40 +35,27 @@ Key interface highlights include:
 
 ## 🏗️ Architecture Diagram
 
-```mermaid
-flowchart TD
-    %% Styling Config
-    classDef client fill:#0A0F1E,stroke:#8B5CF6,stroke-width:2px,color:#fff,rx:8,ry:8
-    classDef server fill:#0A0F1E,stroke:#06B6D4,stroke-width:2px,color:#fff,rx:8,ry:8
-    classDef ai fill:#0A0F1E,stroke:#FF0055,stroke-width:2px,color:#fff,rx:8,ry:8
-    classDef base fill:#1E2336,stroke:#3B4256,stroke-width:1px,color:#fff,rx:4,ry:4
-
-    %% Core Nodes
-    UI["💻 Interactive UI (Framer Motion)"]:::client
-    Validation["🛡️ Zod Schema Validation"]:::base
-    
-    subgraph Routes ["⚡ Serverless API Endpoints"]
-        direction LR
-        Chat["/api/chat"]:::server
-        Consultant["/api/consultant"]:::server
-        Calculator["/api/calculator"]:::server
-        Insight["/api/industry"]:::server
-        Contact["/api/contact"]:::server
-    end
-
-    Claude["🤖 Claude AI Singleton"]:::ai
-    Prompts[("📄 Centralized Prompts")]:::base
-    Success((Done)):::base
-
-    %% Flow Map
-    UI -->|"User Input"| Validation
-    Validation -->|"Fetch Request"| Routes
-    
-    Chat & Consultant & Calculator & Insight -->|"Parse & Execute"| Claude
-    Contact -.->|"Send Email"| Success
-    
-    Claude <-->|"Load System Context"| Prompts
-    Claude == "Streaming Completion" ==> UI
+```text
+MinarIT/
+├── docs/                 # Documentation (Code Standards, Architecture, Git Workflow)
+├── public/               # Static assets (Images, SVGs, Next.js icons)
+├── src/
+│   ├── app/              # Next.js App Router (Pages & API Endpoints)
+│   │   ├── api/          # Serverless Edge APIs (Claude AI, Contact, Calculator)
+│   │   ├── blog/         # Dynamic Blog Routing
+│   │   └── case-studies/ # Dynamic Case Studies
+│   ├── components/       # Reusable React UI Components
+│   │   ├── ai/           # Chat Widget & AI Interfaces
+│   │   ├── forms/        # Zod-validated input forms
+│   │   ├── layout/       # Navbar, Mobile Menu, Footer
+│   │   └── sections/     # Page-specific sections (Hero, Testimonials, etc.)
+│   ├── constants/        # Centralized configurations & AI system prompts
+│   ├── hooks/            # Custom React hooks (scroll, intersection, etc.)
+│   ├── lib/              # Utility functions and Claude AI Singletons
+│   └── types/            # Global strict TypeScript definitions
+├── .eslintrc.json        # ESLint Configuration
+├── tailwind.config.ts    # Tailwind CSS Design System
+└── tsconfig.json         # Strict TypeScript Configuration
 ```
 
 ---
@@ -121,25 +108,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ---
 
-## 📂 Project Structure
 
-```text
-MinarIT/
-├── docs/                 # Architectural and Onboarding Documentation
-├── public/               # Static assets (images, icons)
-├── src/
-│   ├── app/              # Next.js App Router pages and API routes
-│   ├── components/       # Reusable UI, Forms, Sections, and AI components
-│   ├── constants/        # Centralized site configurations and AI Prompts
-│   ├── hooks/            # Custom React hooks (scroll, intersection, etc.)
-│   ├── lib/              # Utility functions, AI Singletons, and Mock Data
-│   └── types/            # Global TypeScript definitions
-├── .eslintrc.json        # Strict linting rules
-├── tailwind.config.ts    # Design system configuration
-└── tsconfig.json         # Strict TS configuration
-```
-
----
 
 <div align="center">
   <p>Built with ❤️ by the Minar Agency Team.</p>
